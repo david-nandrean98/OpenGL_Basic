@@ -13,10 +13,48 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\opengl_utils">
+      <UniqueIdentifier>{877bfed7-4064-4e7e-82cc-9e5633bab5c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\opengl_utils">
+      <UniqueIdentifier>{58830ed0-fa02-4955-a199-0aa605c439c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\core_utils">
+      <UniqueIdentifier>{28adf046-8f9b-4627-b234-d76da5dc86ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\core_utils">
+      <UniqueIdentifier>{3149ec14-28d1-4a71-ac08-55c7c8a97174}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VertexArrayObject.cpp">
+      <Filter>Source Files\opengl_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Source Files\opengl_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="FileManipulation.cpp">
+      <Filter>Source Files\core_utils</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="VertexArrayObject.h">
+      <Filter>Header Files\opengl_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="BufferObject.h">
+      <Filter>Header Files\opengl_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexObject.h">
+      <Filter>Header Files\opengl_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Header Files\opengl_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="FileManipulation.h">
+      <Filter>Header Files\core_utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
