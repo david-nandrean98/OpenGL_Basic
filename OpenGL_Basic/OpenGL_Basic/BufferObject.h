@@ -9,11 +9,13 @@ namespace glutils
 	class BufferObject : public VertexObject
 	{
 	public:
-		BufferObject(const GLfloat* vertices, const GLsizeiptr size, const GLenum usage)
+		BufferObject() = default;
+
+		void initialize(const void* data, const GLsizeiptr size, const GLenum usage)
 		{
 			glGenBuffers(1, &ID);
 			glBindBuffer(target, ID);
-			glBufferData(target, size, vertices, usage);
+			glBufferData(target, size, data, usage);
 		}
 
 		~BufferObject()
@@ -26,7 +28,7 @@ namespace glutils
 			glBindBuffer(target, ID);
 		}
 
-		void Unbind() const override
+		static void Unbind()
 		{
 			glBindBuffer(target, 0);
 		}

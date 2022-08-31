@@ -16,14 +16,38 @@
     <Filter Include="Header Files\opengl_utils">
       <UniqueIdentifier>{877bfed7-4064-4e7e-82cc-9e5633bab5c7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\opengl_utils">
-      <UniqueIdentifier>{58830ed0-fa02-4955-a199-0aa605c439c2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\core_utils">
       <UniqueIdentifier>{28adf046-8f9b-4627-b234-d76da5dc86ef}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\core_utils">
       <UniqueIdentifier>{3149ec14-28d1-4a71-ac08-55c7c8a97174}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\3rdparty">
+      <UniqueIdentifier>{1d6bf11f-751b-4598-b605-8746d1a400fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\glfw_utils">
+      <UniqueIdentifier>{3f925013-1b03-4b58-bf00-58648cd4e81a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\glfw_utils">
+      <UniqueIdentifier>{073bbef2-91e6-4afa-87c3-57611d9623b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\graphics_utils">
+      <UniqueIdentifier>{f0f290c5-5c1a-43d0-941c-da63789e12de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Shaders">
+      <UniqueIdentifier>{42fb425a-949a-4797-b0b8-73db5a136be5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Shaders\Default">
+      <UniqueIdentifier>{1cce5e1e-707d-402d-bdac-09b50b948b9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\graphics_utils">
+      <UniqueIdentifier>{834ebc8c-03c6-4588-89c1-69ec64a41eab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\opengl_utils">
+      <UniqueIdentifier>{58830ed0-fa02-4955-a199-0aa605c439c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Models">
+      <UniqueIdentifier>{e50d6146-4887-4049-9705-9e14c366e9e6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -38,6 +62,30 @@
     </ClCompile>
     <ClCompile Include="FileManipulation.cpp">
       <Filter>Source Files\core_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="glad.c">
+      <Filter>Source Files\3rdparty</Filter>
+    </ClCompile>
+    <ClCompile Include="stb.cpp">
+      <Filter>Source Files\3rdparty</Filter>
+    </ClCompile>
+    <ClCompile Include="ApplicationWindow.cpp">
+      <Filter>Source Files\glfw_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\graphics_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Source Files\graphics_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics_utils.cpp">
+      <Filter>Source Files\graphics_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="StringManipulation.cpp">
+      <Filter>Source Files\core_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source Files\graphics_utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -56,5 +104,34 @@
     <ClInclude Include="FileManipulation.h">
       <Filter>Header Files\core_utils</Filter>
     </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files\opengl_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ApplicationWindow.h">
+      <Filter>Header Files\glfw_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\graphics_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Header Files\graphics_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics_utils.h">
+      <Filter>Header Files\graphics_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="StringManipulation.h">
+      <Filter>Header Files\core_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files\graphics_utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="default.vert">
+      <Filter>Resource Files\Shaders\Default</Filter>
+    </None>
+    <None Include="default.frag">
+      <Filter>Resource Files\Shaders\Default</Filter>
+    </None>
   </ItemGroup>
 </Project>

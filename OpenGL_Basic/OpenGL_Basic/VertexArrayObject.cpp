@@ -18,7 +18,7 @@ namespace glutils
 		glBindVertexArray(ID);
 	}
 
-	void VertexArrayObject::Unbind() const
+	void VertexArrayObject::Unbind()
 	{
 		glBindVertexArray(0);
 	}
@@ -28,6 +28,6 @@ namespace glutils
 		vbo.Bind();
 		glVertexAttribPointer(index, size, type, GL_FALSE, stride, pointer);
 		glEnableVertexAttribArray(index);
-		vbo.Unbind();
+		VertexBufferObject::Unbind();
 	}
 }

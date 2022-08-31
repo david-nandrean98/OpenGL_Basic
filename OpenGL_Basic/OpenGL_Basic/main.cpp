@@ -1,7 +1,9 @@
 #include <iostream>
+#include "ApplicationWindow.h"
 
 int main()
 {
-	std::cout << "Hello World!" << std::endl;
+	glfwutils::ApplicationWindow appWin(800, 800, "Demo");
+	appWin.Run();
 	return 0;
 }
