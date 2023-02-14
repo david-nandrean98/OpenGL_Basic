@@ -3,8 +3,12 @@
 #include "Mesh.h"
 
 #include <glad/glad.h>
+#include <glm/common.hpp>
 #include <cstdint>
 #include <vector>
+#define _USE_MATH_DEFINES
+#include <cmath>
+#include <corecrt_math_defines.h>
 
 namespace graphics
 {
@@ -26,6 +30,13 @@ namespace graphics
 
 	struct MeshLoader
 	{
-		static Mesh loadOBJ(const char* filename, const char* textureFile);
+		static void loadOBJ(const char* filename, /*out*/ std::vector<Vertex>& vertices, /*out*/ std::vector<GLuint>& indices);
+	};
+
+	struct ParametricSurfaceConstructor
+	{
+		static void construct(const int resolution, glm::vec3(*desc)(float, float), std::vector<Vertex>& vertices, std::vector<GLuint>& indices);
+		static glm::vec3 Sphere(float u, float v);
+		static glm::vec3 Cylinder(float u, float v);
 	};
 }

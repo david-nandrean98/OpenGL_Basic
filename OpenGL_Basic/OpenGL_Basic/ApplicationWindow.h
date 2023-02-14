@@ -6,6 +6,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <memory>
+#include <vector>
 
 
 namespace glfwutils
@@ -22,7 +23,12 @@ namespace glfwutils
 		int height;
 		bool firstClick;
 		GLFWwindow* window;
-		std::unique_ptr<graphics::Camera> camera;
+		graphics::Camera camera;
 		graphics::Scene scene;
+		glutils::VertexArrayObject* vao = nullptr;
+		glutils::VertexBufferObject vbo;
+		glutils::ElementBufferObject ebo;
+		glutils::Shader* shader = nullptr;
+		glm::mat4 model;
 	};
 }

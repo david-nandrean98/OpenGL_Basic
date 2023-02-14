@@ -87,6 +87,9 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Source Files\graphics_utils</Filter>
     </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Source Files\graphics_utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VertexArrayObject.h">
@@ -123,6 +126,9 @@
       <Filter>Header Files\core_utils</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
+      <Filter>Header Files\graphics_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
       <Filter>Header Files\graphics_utils</Filter>
     </ClInclude>
   </ItemGroup>

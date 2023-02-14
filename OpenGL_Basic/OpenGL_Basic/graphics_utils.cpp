@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <iostream>
 #include <map>
 
 namespace graphics
@@ -24,118 +25,142 @@ namespace graphics
 			default: return "Unknown";
 		}
 	}
-
-	Mesh MeshLoader::loadOBJ(const char* filename, const char* textureFile)
+	// Only works for trimesh
+	void MeshLoader::loadOBJ(const char* filename,  /*out*/ std::vector<Vertex>& vertices, /*out*/ std::vector<GLuint>& indices)
 	{
+
+		vertices.clear();
+		indices.clear();
 
 		std::ifstream in(filename);
 		std::string line;
 
-		std::vector<GLfloat> temp_vertices;
-		std::vector<GLfloat> temp_normals;
-		std::vector<GLfloat> temp_textures;
+		std::vector<glm::vec3> temp_vertices;
+		std::vector<glm::vec3> temp_normals;
+		std::vector<glm::vec2> temp_textures;
 
-		std::vector<GLfloat> vertices;
-		std::vector<GLuint> indices;
-
-		struct Vertex
-		{
-			Vertex(const std::vector<std::string>& init)
-			{
-				vertex = std::stoi(init[0]) - 1;
-				texture = std::stoi(init[1]) - 1;
-				normal = std::stoi(init[2]) - 1;
-			}
-			bool operator<(const Vertex& other) const
-			{
-				return this->vertex < other.vertex ? true :
-					(this->vertex > other.vertex ? false :
-						(this->texture < other.texture ? true : (this->texture > other.texture ? false :
-							this->normal < other.normal)));
-			}
-
-			bool operator==(const Vertex& other) const
-			{
-				return this->vertex == other.vertex &&
-					   this->texture == other.texture &&
-					   this->normal == other.normal;
-			}
-			size_t vertex;
-			size_t texture;
-			size_t normal;
-		};
-		GLuint indexNumber = 0;
-		std::map<Vertex, GLuint> vertexIndex;
-
-		while (std::getline(in, line))
+		while (std::getline(in, line, '\n'))
 		{
 			if (line[0] == '#') continue;
-			if (line.substr(0, 2) == "v ")
+			else if (line.substr(0, 2) == "v ")
 			{
-				std::istringstream iss(line.substr(2));
-				float x, y, z;
-				iss >> x >> y >> z;
-				temp_vertices.push_back(x);
-				temp_vertices.push_back(y);
-				temp_vertices.push_back(z);
+				std::istringstream is(line.substr(2, line.size() - 1));
+				glm::vec3 vertex;
+				is >> vertex.x >> vertex.y >> vertex.z;
+				temp_vertices.push_back(vertex);
 			}
 			else if (line.substr(0, 3) == "vn ")
 			{
-				std::istringstream iss(line.substr(3));
-				float x, y, z;
-				iss >> x >> y >> z;
-				temp_normals.push_back(x);
-				temp_normals.push_back(y);
-				temp_normals.push_back(z);
+				std::istringstream is(line.substr(3, line.size() - 2));
+				glm::vec3 normal;
+				is >> normal.x >> normal.y >> normal.z;
+				temp_normals.push_back(normal);
 			}
 			else if (line.substr(0, 3) == "vt ")
 			{
-				std::istringstream iss(line.substr(3));
-				float x, y;
-				iss >> x >> y;
-				temp_textures.push_back(x);
-				temp_textures.push_back(y);
+				std::istringstream is(line.substr(3, line.size() - 2));
+				glm::vec2 texture;
+				is >> texture.x >> texture.y;
+				temp_textures.push_back(texture);
 			}
 			else if (line.substr(0, 2) == "f ")
 			{
-				std::istringstream iss(line.substr(2));
-				std::string first, second, third;
-				iss >> first >> second >> third;
-
-				std::vector<Vertex>faceVertices = 
-				{ Vertex(core::delimitByToken(first, "/")),
-				Vertex(core::delimitByToken(second, "/")),
-				Vertex(core::delimitByToken(third, "/")) };
-
-				for (const auto& faceVertex : faceVertices)
+				std::istringstream is(line.substr(2, line.size() - 1));
+				while (std::getline(is, line, ' '))
 				{
-					std::map<Vertex, GLuint>::const_iterator it;
-					if ((it = vertexIndex.find(faceVertex)) != vertexIndex.cend())
+					const auto num = std::count(line.begin(), line.end(), '/');
+					Vertex v;
+					if (num == 0)
 					{
-						indices.push_back(it->second);
+						v.position = temp_vertices[std::atoi(line.c_str()) - 1];
 					}
 					else
 					{
-						indices.push_back(indexNumber);
-						vertexIndex.insert({ faceVertex, indexNumber++ });
-						
-						size_t vInd = 3 * faceVertex.vertex;
-						vertices.push_back(temp_vertices[vInd]);
-						vertices.push_back(temp_vertices[vInd + 1]);
-						vertices.push_back(temp_vertices[vInd + 2]);
-
-						size_t tInd = 2 * faceVertex.texture;
-						vertices.push_back(temp_textures[tInd]);
-						vertices.push_back(temp_textures[tInd + 1]);
-
-						size_t nInd = 3 * faceVertex.normal;
-						vertices.push_back(temp_normals[nInd]);
-						vertices.push_back(temp_normals[nInd + 1]);
-						vertices.push_back(temp_normals[nInd + 2]);
+						std::istringstream iss(line);
+						std::string v_line;
+						std::getline(iss, v_line, '/');
+						v.position = temp_vertices[std::atoi(v_line.c_str()) - 1];
+						if (num == 1)
+						{
+							std::getline(iss, v_line, '/');
+							v.texCoord = temp_textures[std::atoi(v_line.c_str()) - 1];
+						}
+						else if (num == 2)
+						{
+							std::getline(iss, v_line, '/');
+							v.texCoord = temp_textures[std::atoi(v_line.c_str()) - 1];
+							std::getline(iss, v_line, '/');
+							v.normal = temp_normals[std::atoi(v_line.c_str()) - 1];
+						}
 					}
+					auto it = std::find(vertices.begin(), vertices.end(), v);
+					if (it == vertices.end())
+					{
+						vertices.push_back(v);
+						indices.push_back(vertices.size() - 1);
+					}
+					else
+					{
+						size_t idx = it - vertices.begin();
+						indices.push_back(idx);
+					}
+
 				}
 			}
 		}
-		return Mesh(vertices, indices, "default.vert", "default.frag", textureFile);
 	}
+	void ParametricSurfaceConstructor::construct(const int resolution, glm::vec3(*desc)(float, float), std::vector<Vertex>& vertices, std::vector<GLuint>& indices)
+	{
+		vertices.clear();
+		indices.clear();
+
+		vertices.resize((resolution + 1) * (resolution + 1));
+
+		for (int i = 0; i <= resolution; i++)
+		{
+			const float u = static_cast<float>(i) / static_cast<float>(resolution);
+			for (int j = 0; j <= resolution; j++)
+			{
+				const float v = static_cast<float>(j) / static_cast<float>(resolution);
+				const auto position = desc(u, v);
+				int idx = i * (resolution + 1) + j;
+				vertices[idx].position = position;
+				vertices[idx].texCoord = glm::vec2(u, v);
+				const auto du = desc(u + 0.01f, v) - desc(u, v);
+				const auto dv = desc(u, v + 0.01f) - desc(u, v);
+				vertices[idx].normal = glm::normalize(glm::cross(du, dv));
+			}
+		}
+
+		indices.resize(resolution * resolution * 6);
+
+		for (int i = 0; i < resolution; i++)
+		{
+			
+			for (int j = 0; j < resolution; j++)
+			{
+				int idx = (i * resolution + j) * 6;
+				indices[idx] = i * (resolution + 1) + j;
+				indices[idx + 1] = i * (resolution + 1) + j + 1;
+				indices[idx + 2] = (i + 1) * (resolution + 1) + j;
+				indices[idx + 3] = i * (resolution + 1) + j + 1;
+				indices[idx + 4] = (i + 1) * (resolution + 1) + j + 1;
+				indices[idx + 5] = (i + 1) * (resolution + 1) + j;
+			}
+		}
+	}
+
+	glm::vec3 ParametricSurfaceConstructor::Sphere(float u, float v)
+	{
+		u *= 2.0f * M_PI;
+		v *= M_PI;
+		return glm::vec3(std::sin(v) * std::cos(u), std::cos(v), std::sin(v) * std::sin(u));
+	}
+
+	glm::vec3 ParametricSurfaceConstructor::Cylinder(float u, float v)
+	{
+		return glm::vec3(0.0f, cos(v), sin(u));
+	}
+
+
 }

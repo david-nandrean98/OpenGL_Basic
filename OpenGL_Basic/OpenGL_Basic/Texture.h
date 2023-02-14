@@ -19,6 +19,7 @@ namespace glutils
 
 			glGenTextures(1, &ID);
 			glActiveTexture(slot);
+			glBindTexture(textureType, ID);
 
 			glTexParameteri(textureType, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
 			glTexParameteri(textureType, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -45,7 +46,7 @@ namespace glutils
 
 		void Bind() const
 		{
-			glActiveTexture(GL_TEXTURE0);
+			//glActiveTexture(GL_TEXTURE0);
 			glBindTexture(textureType, ID);
 		}
 
