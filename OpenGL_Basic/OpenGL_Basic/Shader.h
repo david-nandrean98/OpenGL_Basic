@@ -8,10 +8,11 @@ namespace glutils
 	class Shader
 	{
 	public:
-		Shader();
+		Shader(const char* vertexShaderFileName, const char* fragmentShaderFileName);
+		Shader(const Shader& other) = delete;
+		Shader(Shader&& other);
 		~Shader();
-		void initialize(const char* vertexShaderFileName, const char* fragmentShaderFileName);
-		void Use();
+		void Use() const;
 		void setUniform1f(const char* name, const GLfloat value) const;
 		void setUniform2f(const char* name, const glm::vec2& value) const;
 		void setUniform3f(const char* name, const glm::vec3& value) const;

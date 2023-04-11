@@ -1,0 +1,138 @@
+#include "Material.h"
+
+namespace graphics
+{
+
+    Material::Material(const glm::vec3& ambient, const glm::vec3& diffuse, const glm::vec3& specular, const float shininess):
+        ambient(ambient),
+        diffuse(diffuse),
+        specular(specular),
+        shininess(shininess * 128.0f) {}
+
+    Material graphics::Material::Emerald()
+    {
+        return Material(glm::vec3(0.0215f, 0.1745f, 0.0215f), glm::vec3(0.07568f, 0.61424f, 0.07568f), glm::vec3(0.633f, 0.727811f, 0.633f), 0.6f);
+    }
+
+    Material graphics::Material::Jade()
+    {
+        return Material(glm::vec3(0.135f, 0.2225f, 0.1575f), glm::vec3(0.54f, 0.89f, 0.63f), glm::vec3(0.316228f), 0.1f);
+    }
+
+    Material Material::Obsidian()
+    {
+        return Material(glm::vec3(0.05375f, 0.05f, 0.06625f), glm::vec3(0.18275f, 0.17f, 0.22525f), glm::vec3(0.332741f, 0.328634f, 0.346435f), 0.3f);
+    }
+
+    Material Material::Pearl()
+    {
+        return Material(glm::vec3(0.25f, 0.20725f, 0.20725f), glm::vec3(1.0f, 0.829f, 0.829f), glm::vec3(0.296648f), 0.088f);
+    }
+
+    Material Material::Ruby()
+    {
+        return Material(glm::vec3(0.1745f, 0.01175f, 0.01175f), glm::vec3(0.61424f, 0.04136f, 0.04136f), glm::vec3(0.727811f, 0.626959f, 0.626959f), 0.6f);
+    }
+
+    Material Material::Turquoise()
+    {
+        return Material(glm::vec3(0.1f, 0.18725f, 0.1745f), glm::vec3(0.396f, 0.74151f, 0.69102f), glm::vec3(0.297254f, 0.30829f, 0.306678f), 0.1f);
+    }
+
+    Material Material::Brass()
+    {
+        return Material(glm::vec3(0.329412f, 0.223529f, 0.027451f), glm::vec3(0.780392f, 0.568627f, 0.113725f), glm::vec3(0.992157f, 0.941176f, 0.807843f), 0.21794872f);
+    }
+
+    Material Material::Bronze()
+    {
+        return Material(glm::vec3(0.2125f, 0.1275f, 0.054f), glm::vec3(0.714f, 0.4284f, 0.18144f), glm::vec3(0.393548f, 0.271906f, 0.166721f), 0.2f);
+    }
+
+    Material Material::Chrome()
+    {
+        return Material(glm::vec3(0.25f), glm::vec3(0.4f), glm::vec3(0.774597f), 0.6f);
+    }
+
+    Material Material::Copper()
+    {
+        return Material(glm::vec3(0.19125f, 0.0735f, 0.0225f), glm::vec3(0.7038f, 0.27048f, 0.0828f), glm::vec3(0.256777f, 0.137622f, 0.086014f), 0.1f);
+    }
+
+    Material Material::Gold()
+    {
+        return Material(glm::vec3(0.24725f, 0.1995f, 0.07425f), glm::vec3(0.75164f, 0.60648f, 0.22648f), glm::vec3(0.628281f, 0.555802f, 0.366065f), 0.4f);
+    }
+
+    Material Material::Silver()
+    {
+        return Material(glm::vec3(0.19225f), glm::vec3(0.50754f), glm::vec3(0.508273f), 0.4f);
+    }
+
+    Material Material::BlackPlastic()
+    {
+        return Material(glm::vec3(0.0f), glm::vec3(0.01f), glm::vec3(0.5f), 0.25f);
+    }
+
+    Material Material::CyanPlastic()
+    {
+        return Material(glm::vec3(0.0f, 0.1f, 0.06f), glm::vec3(0.0, 0.50980392f, 0.50980392f), glm::vec3(0.50196078f), 0.25f);
+    }
+
+    Material Material::GreenPlastic()
+    {
+        return Material(glm::vec3(0.0f), glm::vec3(0.1f, 0.35f, 0.1f), glm::vec3(0.45f, 0.55f, 0.45), 0.25f);
+    }
+
+    Material Material::RedPlastic()
+    {
+        return Material(glm::vec3(0.0f), glm::vec3(0.5f, 0.0f, 0.0f), glm::vec3(0.7f, 0.6f, 0.6f), 0.25f);
+    }
+
+    Material Material::WhitePlastic()
+    {
+        return Material(glm::vec3(0.0f), glm::vec3(0.55f), glm::vec3(0.7f), 0.25f);
+    }
+
+    Material Material::YellowPlastic()
+    {
+        return Material(glm::vec3(0.0f), glm::vec3(0.5f, 0.5f, 0.0f), glm::vec3(0.6f, 0.6f, 0.5f), 0.25f);
+    }
+
+    Material Material::BlackRubber()
+    {
+        return Material(glm::vec3(0.02f), glm::vec3(0.01f), glm::vec3(0.4f), 0.078125f);
+    }
+
+    Material Material::CyanRubber()
+    {
+        return Material(glm::vec3(0.0f, 0.05f, 0.05f), glm::vec3(0.4f, 0.5f, 0.5f), glm::vec3(0.04f, 0.7f, 0.7f), 0.078125f);
+    }
+
+    Material Material::GreenRubber()
+    {
+        return Material(glm::vec3(0.0f, 0.05f, 0.0f), glm::vec3(0.4f, 0.5f, 0.4f), glm::vec3(0.04f, 0.7f, 0.04f), 0.078125f);
+    }
+
+    Material Material::RedRubber()
+    {
+        return Material(glm::vec3(0.05f, 0.0f, 0.0f), glm::vec3(0.5f, 0.4f, 0.4f), glm::vec3(0.7f, 0.04f, 0.04f), 0.078125f);
+    }
+
+    Material Material::WhiteRubber()
+    {
+        return Material(glm::vec3(0.05f), glm::vec3(0.05f), glm::vec3(0.7f), 0.078125f);
+    }
+
+    Material Material::YellowRubber()
+    {
+        return Material(glm::vec3(0.05f, 0.05f, 0.0f), glm::vec3(0.5f, 0.5f, 0.4f), glm::vec3(0.7f, 0.7f, 0.04f), 0.078125f);
+    }
+    void Material::setUniform(const glutils::Shader& shader, const std::string& variable) const
+    {
+        shader.setUniform3f((variable + ".ambient").c_str(), ambient);
+        shader.setUniform3f((variable + ".diffuse").c_str(), diffuse);
+        shader.setUniform3f((variable + ".specular").c_str(), specular);
+        shader.setUniform1f((variable + ".shininess").c_str(), shininess);
+    }
+}

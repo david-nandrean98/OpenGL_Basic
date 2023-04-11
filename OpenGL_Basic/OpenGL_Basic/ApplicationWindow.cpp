@@ -1,19 +1,18 @@
 #include "ApplicationWindow.h"
+#include "QuadricSurfaceCreator.h"
 #include <glad/glad.h>
 #include <stdexcept>
 #include <iostream>
 
 namespace glfwutils
 {
-	ApplicationWindow::ApplicationWindow(const int width, const int height, const char* title): width{width}, height{height}, firstClick{true}, camera{width, height, 35.0f, 0.1f, 1000.0f}
+	ApplicationWindow::ApplicationWindow(const int width, const int height, const char* title): width{width}, height{width}, firstClick{true}, camera{width, height, 45.0f, 0.5f, 1000.0f}
 	{
 		glfwInit();
 
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		//glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
-
 
 		window = glfwCreateWindow(width, height, title, nullptr, nullptr);
 
@@ -29,13 +28,41 @@ namespace glfwutils
 		glClearColor(0.07f, 1.0f, 0.17f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_DEPTH_TEST);
-		//glShadeModel(GL_FLAT);
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		//glEnable(GL_CULL_FACE);
-		//glCullFace(GL_BACK);
-		//glFrontFace(GL_CCW);
 
-		scene.addSphere(camera); scene.addLight(Light(Light::LightType::Directional, glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f, 0.0f, 1.0f))); scene.addLight(Light(Light::LightType::Directional, glm::vec3(0.0f, 1.0f, 1.0f), glm::vec3(0.2f, 0.5f, 0.0f)));
+		std::vector<std::string> facesCubemap =
+		{
+			"skybox/yokohama/right.jpg",
+			"skybox/yokohama/left.jpg",
+			"skybox/yokohama/top.jpg",
+			"skybox/yokohama/bottom.jpg",
+			"skybox/yokohama/front.jpg",
+			"skybox/yokohama/back.jpg"
+		};
+		/*
+		scene.createSkybox(facesCubemap);
+
+
+		scene.addShader("default.vert", "default.frag");
+		scene.addTexture("brick.png");
+		scene.addSphere(camera);
+		scene.addSphere(camera);
+		scene.getObject(1).translate(glm::vec3(30.0f, 50.0f, 10.0f));
+		scene.addLight(Light(Light::LightType::Directional, glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.8f)));
+		scene.addLight(Light(Light::LightType::Directional, glm::vec3(0.0f, 1.0f, 1.0f), glm::vec3(0.2f, 0.5f, 0.0f)));
+		*/
+		rtScene.addLight(Light(Light::LightType::Directional, glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.8f)));
+		rtScene.addLight(Light(Light::LightType::Directional, glm::vec3(0.0f, 1.0f, 1.0f), glm::vec3(0.2f, 0.5f, 0.0f)));
+		//auto& surf = rtScene.addQuadricSurface(graphics::QuadricSurface(graphics::QuadricSurfaceCreator::Sphere(), graphics::QuadricSurface::Type::Diffuse, graphics::Material::Gold()));
+		//surf.translate(glm::vec3(8.0f, 2.0f, 0.0f));
+		auto* surf = &rtScene.addQuadricSurface(graphics::QuadricSurface(graphics::QuadricSurfaceCreator::Plane(), graphics::QuadricSurface::Type::Reflective, graphics::Material::Chrome()));
+		surf->scale(0.003f);
+		surf = &rtScene.addQuadricSurface(graphics::QuadricSurface(graphics::QuadricSurfaceCreator::Sphere(), graphics::QuadricSurface::Type::Diffuse, graphics::Material::Copper()));
+		surf->translate(glm::vec3(15.0f, 7.0f, 1.0f));
+		surf->scale(glm::vec3(15.0f, 7.0f, 8.0f));
+
+		//surf.translate(glm::vec3(-2.0f, -2.0f, 0.0f));
+		rtScene.addRayTraceShader(facesCubemap);
+
 
 	}
 
@@ -53,7 +80,7 @@ namespace glfwutils
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			const auto currentTime = glfwGetTime();
 			handleInputs();
-			scene.drawMeshes(camera);
+			rtScene.draw(camera);
 			glfwSwapBuffers(window);
 			glfwPollEvents();
 		}
@@ -112,11 +139,8 @@ namespace glfwutils
 			}
 			double mouseX;
 			double mouseY;
-			// Fetches the coordinates of the cursor
 			glfwGetCursorPos(window, &mouseX, &mouseY);
 
-			// Normalizes and shifts the coordinates of the cursor such that they begin in the middle of the screen
-			// and then "transforms" them into degrees 
 			float rotateX = 100.0f * (float)(mouseY - (height / 2)) / height;
 			float rotateY = 100.0f * (float)(mouseX - (width / 2)) / width;
 

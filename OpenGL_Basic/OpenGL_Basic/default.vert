@@ -6,9 +6,7 @@ layout (location = 2) in vec3 aColor;
 layout (location = 3) in vec2 aTex;
 
 out vec3 Normal;
-// Outputs the current position for the Fragment Shader
 out vec3 crntPos;
-
 out vec3 Color;
 out vec2 texCoord;
 

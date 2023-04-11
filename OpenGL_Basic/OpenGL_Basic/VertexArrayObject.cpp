@@ -1,11 +1,16 @@
 #include "VertexArrayObject.h"
 #include "BufferObject.h"
+#include <utility>
 
 namespace glutils
 {
 	VertexArrayObject::VertexArrayObject()
 	{
 		glGenVertexArrays(1, &ID);
+	}
+
+	VertexArrayObject::VertexArrayObject(VertexArrayObject&& other): VertexObject(std::move(other))
+	{
 	}
 
 	VertexArrayObject::~VertexArrayObject()

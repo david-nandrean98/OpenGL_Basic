@@ -109,7 +109,7 @@ namespace graphics
 			}
 		}
 	}
-	void ParametricSurfaceConstructor::construct(const int resolution, glm::vec3(*desc)(float, float), std::vector<Vertex>& vertices, std::vector<GLuint>& indices)
+	void ParametricSurfaceConstructor::construct(const int resolution, glm::vec3(*surface)(float, float), std::vector<Vertex>& vertices, std::vector<GLuint>& indices)
 	{
 		vertices.clear();
 		indices.clear();
@@ -122,12 +122,12 @@ namespace graphics
 			for (int j = 0; j <= resolution; j++)
 			{
 				const float v = static_cast<float>(j) / static_cast<float>(resolution);
-				const auto position = desc(u, v);
+				const auto position = surface(u, v);
 				int idx = i * (resolution + 1) + j;
 				vertices[idx].position = position;
 				vertices[idx].texCoord = glm::vec2(u, v);
-				const auto du = desc(u + 0.01f, v) - desc(u, v);
-				const auto dv = desc(u, v + 0.01f) - desc(u, v);
+				const auto du = surface(u + 0.01f, v) - surface(u, v);
+				const auto dv = surface(u, v + 0.01f) - surface(u, v);
 				vertices[idx].normal = glm::normalize(glm::cross(du, dv));
 			}
 		}
@@ -150,17 +150,65 @@ namespace graphics
 		}
 	}
 
-	glm::vec3 ParametricSurfaceConstructor::Sphere(float u, float v)
+	void ParametricSurfaceConstructor::construct(const int resolution, glm::vec3(*surface)(float, float), glm::vec3(*normal)(float, float), std::vector<Vertex>& vertices, std::vector<GLuint>& indices)
+	{
+		vertices.clear();
+		indices.clear();
+
+		vertices.resize((resolution + 1) * (resolution + 1));
+
+		for (int i = 0; i <= resolution; i++)
+		{
+			const float u = static_cast<float>(i) / static_cast<float>(resolution);
+			for (int j = 0; j <= resolution; j++)
+			{
+				const float v = static_cast<float>(j) / static_cast<float>(resolution);
+				const auto position = surface(u, v);
+				int idx = i * (resolution + 1) + j;
+				vertices[idx].position = position;
+				vertices[idx].texCoord = glm::vec2(u, v);
+				vertices[idx].normal = normal(u, v);
+			}
+		}
+
+		indices.resize(resolution * resolution * 6);
+
+		for (int i = 0; i < resolution; i++)
+		{
+
+			for (int j = 0; j < resolution; j++)
+			{
+				int idx = (i * resolution + j) * 6;
+				indices[idx] = i * (resolution + 1) + j;
+				indices[idx + 1] = i * (resolution + 1) + j + 1;
+				indices[idx + 2] = (i + 1) * (resolution + 1) + j;
+				indices[idx + 3] = i * (resolution + 1) + j + 1;
+				indices[idx + 4] = (i + 1) * (resolution + 1) + j + 1;
+				indices[idx + 5] = (i + 1) * (resolution + 1) + j;
+			}
+		}
+	}
+
+	glm::vec3 ParametricSurfaceConstructor::Surface::Sphere(float u, float v)
 	{
 		u *= 2.0f * M_PI;
 		v *= M_PI;
 		return glm::vec3(std::sin(v) * std::cos(u), std::cos(v), std::sin(v) * std::sin(u));
 	}
 
-	glm::vec3 ParametricSurfaceConstructor::Cylinder(float u, float v)
+	glm::vec3 ParametricSurfaceConstructor::Surface::Cylinder(float u, float v)
 	{
-		return glm::vec3(0.0f, cos(v), sin(u));
+		return glm::vec3(u, std::cos(v), std::sin(u));
 	}
+
+	glm::vec3 ParametricSurfaceConstructor::Normal::Sphere(float u, float v)
+	{
+		u *= 2.0f * M_PI;
+		v *= M_PI;
+		return glm::vec3(std::sin(v) * std::cos(u), std::cos(v), std::sin(v) * std::sin(u));
+	}
+
+
 
 
 }

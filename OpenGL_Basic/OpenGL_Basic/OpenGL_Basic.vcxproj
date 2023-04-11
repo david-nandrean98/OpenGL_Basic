@@ -153,14 +153,26 @@
   <ItemGroup>
     <ClCompile Include="ApplicationWindow.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="DrawableObject.cpp" />
     <ClCompile Include="FileManipulation.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="graphics_utils.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Material.cpp" />
+    <ClCompile Include="QuadricSurface.cpp" />
+    <ClCompile Include="QuadricSurfaceCreator.cpp" />
+    <ClCompile Include="RayTracerScene.cpp" />
+    <ClCompile Include="RayTracerRectangle.cpp" />
+    <ClCompile Include="RayTracerSkybox.cpp" />
+    <ClCompile Include="Skybox.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Texture2D.cpp" />
+    <ClCompile Include="TextureCubemap.cpp" />
+    <ClCompile Include="TriMesh.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Light.cpp" />
+    <ClCompile Include="SkyboxMesh.cpp" />
     <ClCompile Include="stb.cpp" />
     <ClCompile Include="StringManipulation.cpp" />
     <ClCompile Include="VertexArrayObject.cpp" />
@@ -168,12 +180,24 @@
   <ItemGroup>
     <ClInclude Include="ApplicationWindow.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="DrawableObject.h" />
     <ClInclude Include="graphics_utils.h" />
     <ClInclude Include="Light.h" />
+    <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="QuadricSurface.h" />
+    <ClInclude Include="QuadricSurfaceCreator.h" />
+    <ClInclude Include="RayTracerScene.h" />
+    <ClInclude Include="RayTracerRectangle.h" />
+    <ClInclude Include="RayTracerSkybox.h" />
+    <ClInclude Include="Skybox.h" />
+    <ClInclude Include="Texture2D.h" />
+    <ClInclude Include="TextureCubemap.h" />
+    <ClInclude Include="TriMesh.h" />
     <ClInclude Include="FileManipulation.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="SkyboxMesh.h" />
     <ClInclude Include="StringManipulation.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="VertexArrayObject.h" />
@@ -183,6 +207,10 @@
   <ItemGroup>
     <None Include="default.frag" />
     <None Include="default.vert" />
+    <None Include="raytrace.frag" />
+    <None Include="raytrace.vert" />
+    <None Include="skybox.frag" />
+    <None Include="skybox.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -10,6 +10,8 @@ namespace glutils
 	{
 	public:
 		VertexArrayObject();
+		VertexArrayObject(const VertexArrayObject& other) = delete;
+		VertexArrayObject(VertexArrayObject&& other);
 		~VertexArrayObject();
 		void Bind() const override;
 		static void Unbind();

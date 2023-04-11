@@ -11,7 +11,7 @@ namespace graphics
 		up{0.0f, 1.0f, 0.0f},
 		speed{0.01f},
 		viewMatrix{glm::lookAt(position, position + orientation, up)},
-		projectionMatrix{glm::perspective(glm::radians(FOVdeg), float(width / height), nearPlane, farPlane)}
+		projectionMatrix{ glm::perspective(glm::radians(FOVdeg), width / static_cast<float>(height), nearPlane, farPlane) }
 	{
 		updateCameraMatrix();
 	}
@@ -33,14 +33,34 @@ namespace graphics
 		camMatrix = projectionMatrix * viewMatrix;
 	}
 
-	glm::mat4 Camera::cameraMatrix() const
+	const glm::mat4& Camera::cameraMatrix() const
 	{
 		return camMatrix;
 	}
 
-	glm::vec3 Camera::pos() const
+	const glm::vec3& Camera::pos() const
 	{
 		return position;
+	}
+
+	const glm::vec3& Camera::ori() const
+	{
+		return orientation;
+	}
+
+	const glm::vec3& Camera::Up() const
+	{
+		return up;
+	}
+
+	const glm::mat4& Camera::ViewMatrix() const
+	{
+		return viewMatrix;
+	}
+
+	const glm::mat4& Camera::ProjectionMatrix() const
+	{
+		return projectionMatrix;
 	}
 
 	void Camera::moveForward()

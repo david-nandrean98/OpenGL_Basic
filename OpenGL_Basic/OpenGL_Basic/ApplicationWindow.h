@@ -2,6 +2,7 @@
 
 #include "Camera.h" 
 #include "Scene.h"
+#include "RayTracerScene.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -25,10 +26,6 @@ namespace glfwutils
 		GLFWwindow* window;
 		graphics::Camera camera;
 		graphics::Scene scene;
-		glutils::VertexArrayObject* vao = nullptr;
-		glutils::VertexBufferObject vbo;
-		glutils::ElementBufferObject ebo;
-		glutils::Shader* shader = nullptr;
-		glm::mat4 model;
+		graphics::RayTracerScene rtScene;
 	};
 }

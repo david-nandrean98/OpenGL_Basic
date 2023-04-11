@@ -1,6 +1,7 @@
 #pragma once
 
 #include "VertexObject.h"
+#include <memory>
 
 
 namespace glutils
@@ -10,6 +11,12 @@ namespace glutils
 	{
 	public:
 		BufferObject() = default;
+
+		BufferObject(const BufferObject& other) = delete;
+
+		BufferObject(BufferObject&& other) : VertexObject(std::move(other))
+		{
+		}
 
 		void initialize(const void* data, const GLsizeiptr size, const GLenum usage)
 		{

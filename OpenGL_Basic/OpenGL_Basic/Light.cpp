@@ -15,12 +15,19 @@ Light::LightType Light::getType() const
 	return type;
 }
 
-glm::vec3 Light::getPosition() const
+const glm::vec3& Light::getPosition() const
 {
 	return position;
 }
 
-glm::vec3 Light::getColor() const
+const glm::vec3& Light::getColor() const
 {
 	return color;
+}
+
+void Light::setUniform(const glutils::Shader& shader, const std::string& variable) const
+{
+	shader.setUniform1i((variable + ".type").c_str(), static_cast<std::underlying_type<LightType>::type>(type));
+	shader.setUniform3f((variable + ".position").c_str(), position);
+	shader.setUniform3f((variable + ".color").c_str(), color);
 }

@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Mesh.h"
-
 #include <glad/glad.h>
 #include <glm/common.hpp>
 #include <cstdint>
@@ -9,6 +7,8 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <corecrt_math_defines.h>
+#include <glm/glm.hpp>
+#include "Mesh.h"
 
 namespace graphics
 {
@@ -35,8 +35,16 @@ namespace graphics
 
 	struct ParametricSurfaceConstructor
 	{
-		static void construct(const int resolution, glm::vec3(*desc)(float, float), std::vector<Vertex>& vertices, std::vector<GLuint>& indices);
-		static glm::vec3 Sphere(float u, float v);
-		static glm::vec3 Cylinder(float u, float v);
+		static void construct(const int resolution, glm::vec3(*surface)(float, float), std::vector<Vertex>& vertices, std::vector<GLuint>& indices);
+		static void construct(const int resolution, glm::vec3(*surface)(float, float), glm::vec3(*normal)(float, float), std::vector<Vertex>& vertices, std::vector<GLuint>& indices);
+		struct Surface
+		{
+			static glm::vec3 Sphere(float u, float v);
+			static glm::vec3 Cylinder(float u, float v);
+		};
+		struct Normal
+		{
+			static glm::vec3 Sphere(float u, float v);
+		};
 	};
 }

@@ -49,6 +49,12 @@
     <Filter Include="Resource Files\Models">
       <UniqueIdentifier>{e50d6146-4887-4049-9705-9e14c366e9e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Shaders\Skybox">
+      <UniqueIdentifier>{ac232b7e-8c8c-49dc-b26e-7d9cf733bced}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Shaders\Raytrace">
+      <UniqueIdentifier>{113d4862-f44b-4401-a4d3-f7b8f1dc6553}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -75,7 +81,7 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files\graphics_utils</Filter>
     </ClCompile>
-    <ClCompile Include="Mesh.cpp">
+    <ClCompile Include="TriMesh.cpp">
       <Filter>Source Files\graphics_utils</Filter>
     </ClCompile>
     <ClCompile Include="graphics_utils.cpp">
@@ -89,6 +95,42 @@
     </ClCompile>
     <ClCompile Include="Light.cpp">
       <Filter>Source Files\graphics_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawableObject.cpp">
+      <Filter>Source Files\graphics_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyboxMesh.cpp">
+      <Filter>Source Files\graphics_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files\opengl_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture2D.cpp">
+      <Filter>Source Files\opengl_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureCubemap.cpp">
+      <Filter>Source Files\opengl_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Skybox.cpp">
+      <Filter>Source Files\graphics_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="RayTracerScene.cpp">
+      <Filter>Source Files\graphics_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="RayTracerSkybox.cpp">
+      <Filter>Source Files\graphics_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="RayTracerRectangle.cpp">
+      <Filter>Source Files\graphics_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadricSurfaceCreator.cpp">
+      <Filter>Source Files\graphics_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Source Files\graphics_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadricSurface.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -116,7 +158,7 @@
     <ClInclude Include="Camera.h">
       <Filter>Header Files\graphics_utils</Filter>
     </ClInclude>
-    <ClInclude Include="Mesh.h">
+    <ClInclude Include="TriMesh.h">
       <Filter>Header Files\graphics_utils</Filter>
     </ClInclude>
     <ClInclude Include="graphics_utils.h">
@@ -131,6 +173,42 @@
     <ClInclude Include="Light.h">
       <Filter>Header Files\graphics_utils</Filter>
     </ClInclude>
+    <ClInclude Include="DrawableObject.h">
+      <Filter>Header Files\graphics_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyboxMesh.h">
+      <Filter>Header Files\graphics_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Header Files\graphics_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture2D.h">
+      <Filter>Header Files\opengl_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureCubemap.h">
+      <Filter>Header Files\opengl_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Skybox.h">
+      <Filter>Header Files\graphics_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="RayTracerScene.h">
+      <Filter>Header Files\graphics_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="RayTracerSkybox.h">
+      <Filter>Header Files\graphics_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="RayTracerRectangle.h">
+      <Filter>Header Files\graphics_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Header Files\graphics_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadricSurfaceCreator.h">
+      <Filter>Header Files\graphics_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadricSurface.h">
+      <Filter>Header Files\graphics_utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="default.vert">
@@ -138,6 +216,18 @@
     </None>
     <None Include="default.frag">
       <Filter>Resource Files\Shaders\Default</Filter>
+    </None>
+    <None Include="skybox.vert">
+      <Filter>Resource Files\Shaders\Skybox</Filter>
+    </None>
+    <None Include="skybox.frag">
+      <Filter>Resource Files\Shaders\Skybox</Filter>
+    </None>
+    <None Include="raytrace.frag">
+      <Filter>Resource Files\Shaders\Raytrace</Filter>
+    </None>
+    <None Include="raytrace.vert">
+      <Filter>Resource Files\Shaders\Raytrace</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -6,14 +6,7 @@
 
 namespace glutils
 {
-	Shader::Shader() = default;
-
-	Shader::~Shader()
-	{
-		glDeleteProgram(ID);
-	}
-
-	void Shader::initialize(const char* vertexShaderFileName, const char* fragmentShaderFileName)
+	Shader::Shader(const char* vertexShaderFileName, const char* fragmentShaderFileName)
 	{
 		const auto vertexCode = core::getFileContents(vertexShaderFileName);
 		const auto fragmentCode = core::getFileContents(fragmentShaderFileName);
@@ -40,11 +33,21 @@ namespace glutils
 		glLinkProgram(ID);
 		compileErrors(ID, "PROGRAM");
 
-		//glDeleteShader(vertexShaderID);
-		//glDeleteShader(fragmentShaderID);
+		glDeleteShader(vertexShaderID);
+		glDeleteShader(fragmentShaderID);
 	}
 
-	void Shader::Use()
+	Shader::Shader(Shader&& other): ID(other.ID)
+	{
+		other.ID = 0;
+	}
+
+	Shader::~Shader()
+	{
+		glDeleteProgram(ID);
+	}
+
+	void Shader::Use() const
 	{
 		glUseProgram(ID);
 	}
